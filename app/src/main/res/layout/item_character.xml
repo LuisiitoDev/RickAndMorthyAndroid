@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="4dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="4dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/ivImageCharacter"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/txtcharacterName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Character Name"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/txtcharacterStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Character Status"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"/>
+
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
