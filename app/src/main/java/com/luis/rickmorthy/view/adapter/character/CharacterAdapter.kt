@@ -9,7 +9,7 @@ import com.luis.rickmorthy.R
 import com.luis.rickmorthy.model.character
 import com.luis.rickmorthy.view.adapter.viewholders.CharacterViewHolder
 
-class CharacterAdapter (val characterListener : CharacterListener, viewType : Int) : RecyclerView.Adapter<CharacterViewHolder>(){
+class CharacterAdapter (val characterListener : CharacterListener) : RecyclerView.Adapter<CharacterViewHolder>(){
 
     val listCharacter = ArrayList<character>()
 
@@ -27,10 +27,10 @@ class CharacterAdapter (val characterListener : CharacterListener, viewType : In
             .into(holder.imageCharacter)
 
         // CHARACTER NAME
-        holder.characterName.text = character.name
+        holder.characterName.text = "Name: ${character.name}"
 
         // CHARACTER STATUS
-        holder.characterStatus.text = character.status
+        holder.characterStatus.text = "Status: ${character.status}"
 
         // EVENT LISTENER
         holder.itemView.setOnClickListener{
@@ -41,6 +41,12 @@ class CharacterAdapter (val characterListener : CharacterListener, viewType : In
     // IT ALLOWS TO INFLATE THE ITEM IN EACH ITERATION
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         return  CharacterViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_character,parent,false))
+    }
+
+    fun updateData(data : List<character>){
+        listCharacter.clear()
+        listCharacter.addAll(data)
+        notifyDataSetChanged()
     }
 
 }

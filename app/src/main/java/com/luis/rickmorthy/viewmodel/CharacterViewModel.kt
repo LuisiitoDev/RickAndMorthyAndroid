@@ -15,6 +15,10 @@ class CharacterViewModel : ViewModel() {
     var isLoading = MutableLiveData<Boolean>()
 
 
+    fun refresh(){
+        getCharactersFromApi()
+    }
+
     private fun processFinished(){
         isLoading.value = true;
     }

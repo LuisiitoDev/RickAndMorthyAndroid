@@ -1,33 +1,36 @@
 package com.luis.rickmorthy.view.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.luis.rickmorthy.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.luis.rickmorthy.model.character
+import com.luis.rickmorthy.view.adapter.character.CharacterAdapter
+import com.luis.rickmorthy.view.adapter.character.CharacterListener
+import com.luis.rickmorthy.viewmodel.CharacterViewModel
+import kotlinx.android.synthetic.main.fragment_character.*
 
 /**
  * A simple [Fragment] subclass.
  * Use the [CharacterFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CharacterFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class CharacterFragment : Fragment(), CharacterListener {
+
+    private lateinit var characterAdapter: CharacterAdapter
+    private lateinit var characterViewModel : CharacterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -38,23 +41,38 @@ class CharacterFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_character, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CharacterFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CharacterFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        characterViewModel = ViewModelProviders.of(this).get(CharacterViewModel::class.java)
+        characterViewModel.refresh()
+        characterAdapter = CharacterAdapter(this)
+
+        rvCharacters.apply {
+            layoutManager = GridLayoutManager(context,2)
+            adapter = characterAdapter
+        }
+
+        observerViewModel()
+    }
+
+    private fun observerViewModel(){
+        characterViewModel.listCharacters.observe(this, Observer<List<character>>{
+            it.let {
+                characterAdapter.updateData(it)
             }
+        })
+
+        characterViewModel.isLoading.observe(this,Observer<Boolean>{
+            if(it != null){
+                rlBaseCharacters.visibility = View.INVISIBLE
+            }
+        })
+    }
+
+
+    override fun onCharacterClicked(character: character, position: Int) {
+        TODO("Not yet implemented")
     }
 }

@@ -7,5 +7,7 @@ data class episode(
     val dimension: String,
     val residents : ArrayList<String>,
     val url : String,
-    val created : String
+    val created : String,
+    val air_date : String,
+    val episode : String
 )

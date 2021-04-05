@@ -1,5 +1,7 @@
 package com.luis.rickmorthy.view.adapter.character
 
-class CharacterListener {
+import com.luis.rickmorthy.model.character
 
+interface CharacterListener {
+    fun onCharacterClicked(character: character, position: Int)
 }

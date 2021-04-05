@@ -1,6 +1,7 @@
 package com.luis.rickmorthy.network.rickandmorthyService
 
 import com.luis.rickmorthy.model.character
+import com.luis.rickmorthy.model.episode
 import com.luis.rickmorthy.network.model.ResponseApi
 import retrofit2.Call
 import retrofit2.Response
@@ -10,5 +11,8 @@ interface RickAndMorthyEndpoints {
 
     @GET("character")
     fun getCharacters() : Call<ResponseApi<character>>
+
+    @GET("episode")
+    fun getEpisodes() : Call<ResponseApi<episode>>
 
 }
